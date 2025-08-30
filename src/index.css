@@ -63,6 +63,8 @@ fieldset {
   color: #9bafaf;
   text-transform: uppercase;
   font-weight: bold;
+  
+text-align:left;
 }
 
 .control input {
@@ -157,4 +159,41 @@ fieldset {
 .button-flat:focus {
   background-color: transparent;
   color: #869999;
+}
+
+
+.content {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.header {
+  max-width: 60rem;
+  margin: auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #f8f9fa; /* light neutral background */
+  border-bottom: 1px solid #e0e0e0; /* subtle separation */
+}
+
+.list {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list a {
+  text-decoration: none;
+  color: #333; /* dark neutral for good contrast */
+  font-weight: 500;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.list a:hover,
+.list a.active {
+  color: #0077cc; /* subtle blue highlight */
+  text-decoration: underline;
 }
