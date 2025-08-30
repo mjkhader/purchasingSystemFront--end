@@ -1,3 +1,4 @@
+
 export interface LoginModel {
     username: string
     password: string
@@ -13,4 +14,12 @@ export interface UserModel {
     lastname: string
     email: string
     roles: string[]
+}
+
+export interface SignUpModel {
+    firstname: string
+    lastname: string
+    username: string
+    email: string
+    password: string
 }

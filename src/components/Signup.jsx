@@ -1,16 +1,20 @@
 import { useActionState } from "react";
+import { useSignUpMutation } from "../data/user";
 import {
-  isEmail,
   hasMinLength,
-  isEqualsToOtherValue,
-  isNotEmpty,
+  isEmail,
+  isNotEmpty
 } from "../util/validation";
+
 export default function Signup() {
-  function signupAction(prevFormState, formData) {
+  const [onSubmit, res] = useSignUpMutation()
+
+  async function signupAction(prevFormState, formData) {
     const email = formData.get("email");
+    const username = formData.get("username");
     const password = formData.get("password");
-    const firstName = formData.get("first-name");
-    const lastName = formData.get("last-name");
+    const firstName = formData.get("firstname");
+    const lastName = formData.get("lastname");
 
     let errors = [];
 
@@ -22,40 +26,44 @@ export default function Signup() {
       errors.push("you must provide a password with at least six characters");
     }
 
-
-
-    
-
     if (errors.length > 0) {
       return {
         errors,
         enteredValues: {
           email,
+          username,
           password,
           firstName,
           lastName,
         },
       };
     }
-
-    //submit to back-end
-
+    await onSubmit({email, username, password, firstname: firstName, lastname: lastName})
+    console.log(res)
     return { errors: null };
   }
 
 
-
-
+  
   const [formState, formAction] = useActionState(signupAction, {
     errors: null,
   });
-
 
 
   return (
     <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
+
+      <div className="control">
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          defaultValue={formState.enteredValues?.username}
+        />
+      </div>
 
       <div className="control">
         <label htmlFor="email">Email</label>
@@ -78,28 +86,27 @@ export default function Signup() {
           />
         </div>
 
-       
       </div>
 
       <hr />
 
       <div className="control-row">
         <div className="control">
-          <label htmlFor="first-name">First Name</label>
+          <label htmlFor="firstname">First Name</label>
           <input
             type="text"
-            id="first-name"
-            name="first-name"
+            id="firstname"
+            name="firstname"
             defaultValue={formState.enteredValues?.firstName}
           />
         </div>
 
         <div className="control">
-          <label htmlFor="last-name">Last Name</label>
+          <label htmlFor="lastname">Last Name</label>
           <input
             type="text"
-            id="last-name"
-            name="last-name"
+            id="lastname"
+            name="lastname"
             defaultValue={formState.enteredValues?.lastName}
           />
         </div>
